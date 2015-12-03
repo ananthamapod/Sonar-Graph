@@ -1,18 +1,31 @@
 /************************* GLOBALS *************************/
 const int pingPin = 7;
 long distance = 0;
+char val;
+const int ledPin = 13;
 
 /***********************************************************/
 
 
 void setup()
 {
+  pinMode(ledPin, OUTPUT);
   // initialize serial communications at a 9600 baud rate
   Serial.begin(9600);
+  establishContact();
 }
 
 void loop()
 {
+  if(Serial.available()) {
+    val = Serial.read();
+  }
+  if(val == 1') {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+  
   int sensorValue = analogRead(A0);
   // print out the value you read:
   // Serial.println(sensorValue);
@@ -23,6 +36,13 @@ void loop()
 }
 
 /************************ UTILITIES ************************/
+
+void establishContact() {
+  while (Serial.available() <= 0) {
+  Serial.println("A");   // send a capital A
+  delay(300);
+  }
+}
 
 //These are modified from from built-in Ping example
 

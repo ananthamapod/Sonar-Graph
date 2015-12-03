@@ -51,6 +51,11 @@ void draw() {
     line(i,(height - data[i-1]), i+1, (height - data[i]));
   }
   
+  if(mousePressed) {
+    myPort.write('1');
+  } else {
+    myPort.write('0');
+  }
 }
 
 /*******************************************************************************/
